@@ -1,3 +1,6 @@
+# Swaps/Editor
+*.swp
+
 # Prerequisites
 *.d
 
