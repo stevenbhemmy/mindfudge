@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.23)
 
 project(mindfudge)
 
+set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*")
+
 find_package(fmt CONFIG REQUIRED)
 
 add_subdirectory(Lexer)
