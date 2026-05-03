@@ -12,5 +12,5 @@ Build
 cmake -B build; cmake --build build
 
 # Run the program
-./build/mindfudge
+./build/mindfudge test_input.bf
 ```
