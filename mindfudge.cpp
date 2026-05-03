@@ -2,7 +2,7 @@
 #include <sstream>
 #include <vector>
 
-#include <fmt/core.h>
+#include <fmt/base.h>
 
 #include <Interpreter.h>
 #include <Lexer.h>

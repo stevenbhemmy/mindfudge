@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.23)
 
 project(mindfudge)
 
-set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*")
+# set(CMAKE_CXX_CLANG_TIDY 
+# 	clang-tidy;
+# 		-checks=*,-llvmlibc-restrict-system-libc-headers)
 
 find_package(fmt CONFIG REQUIRED)
 find_package(Catch2 CONFIG REQUIRED)
