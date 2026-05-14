@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <iostream>
+#include <iterator>
 #include <map>
 #include <vector>
 
@@ -13,10 +14,20 @@
 #define CODESIZE 65536
 #define ARRAYSIZE 65536
 
+struct stateDump {
+  unsigned char tape[ARRAYSIZE];
+  unsigned long stack[CODESIZE];
+  unsigned char inchar;
+  int code_length;
+  int codep;
+  int tapep;
+  int stackp;
+};
+
 class Interpreter {
 public:
   Interpreter(std::vector<Token *> instrs) {
-    fmt::println("Setting up interpreter");
+    /* fmt::println("Setting up interpreter"); */
     instructions = instrs;
     code_length = instructions.size();
     codep = 0;
@@ -26,7 +37,7 @@ public:
 
   void interpret() {
 
-    fmt::println("Mapping loop targets");
+    /* fmt::println("Mapping loop targets"); */
     for (codep = 0; codep < code_length; codep++) {
       auto instr = instructions.at(codep);
       switch (instr->TYPE) {
@@ -46,11 +57,27 @@ public:
       }
     }
 
-    fmt::println("Running interpreter");
+    /* fmt::println("Running interpreter"); */
     for (tapep = 0, codep = 0; codep < code_length; codep++) {
       auto instr = instructions.at(codep);
       dispatchTable[instr->TYPE]();
     }
+  }
+
+  stateDump dumpState() {
+    stateDump dump = {0};
+
+    std::copy(std::begin(this->tape), std::end(this->tape),
+              std::begin(dump.tape));
+    std::copy(std::begin(this->stack), std::end(this->stack),
+              std::begin(dump.stack));
+    dump.inchar = this->inchar;
+    dump.code_length = this->code_length;
+    dump.codep = this->codep;
+    dump.tapep = this->tapep;
+    dump.stackp = this->stackp;
+
+    return dump;
   }
 
 private:

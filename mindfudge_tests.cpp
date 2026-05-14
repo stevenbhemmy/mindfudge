@@ -2,6 +2,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+#include <Interpreter.h>
 #include <Lexer.h>
 
 int factorial(int number) {
@@ -45,4 +46,59 @@ TEST_CASE("Lexer tokenize basic bf program", "[lexer][tokenize]") {
                      [](const Token *tok, const Token *ex_tok) {
                        return tok->TYPE == ex_tok->TYPE;
                      }));
+}
+
+TEST_CASE("Interpreter has > increment tape pointer", "[lexer][tokenize]") {
+
+  Lexer lex = Lexer(">>");
+  std::vector<Token *> tokens = lex.tokenize();
+  Interpreter interp = Interpreter(tokens);
+  interp.interpret();
+  stateDump dump = interp.dumpState();
+
+  REQUIRE(dump.tapep == 2);
+}
+
+TEST_CASE("Interpreter has < decrement tape pointer", "[lexer][tokenize]") {
+
+  Lexer lex = Lexer(">><");
+  std::vector<Token *> tokens = lex.tokenize();
+  Interpreter interp = Interpreter(tokens);
+  interp.interpret();
+  stateDump dump = interp.dumpState();
+
+  REQUIRE(dump.tapep == 1);
+}
+
+TEST_CASE("Interpreter has + increment tape cell", "[lexer][tokenize]") {
+
+  Lexer lex = Lexer("++");
+  std::vector<Token *> tokens = lex.tokenize();
+  Interpreter interp = Interpreter(tokens);
+  interp.interpret();
+  stateDump dump = interp.dumpState();
+
+  REQUIRE(dump.tape[0] == 2);
+}
+
+TEST_CASE("Interpreter has - decrement tape cell", "[lexer][tokenize]") {
+
+  Lexer lex = Lexer("++-");
+  std::vector<Token *> tokens = lex.tokenize();
+  Interpreter interp = Interpreter(tokens);
+  interp.interpret();
+  stateDump dump = interp.dumpState();
+
+  REQUIRE(dump.tape[0] == 1);
+}
+
+TEST_CASE("Interpreter loop works", "[lexer][tokenize]") {
+
+  Lexer lex = Lexer("++++[-]");
+  std::vector<Token *> tokens = lex.tokenize();
+  Interpreter interp = Interpreter(tokens);
+  interp.interpret();
+  stateDump dump = interp.dumpState();
+
+  REQUIRE(dump.tape[0] == 0);
 }
