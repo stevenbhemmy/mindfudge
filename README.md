@@ -28,6 +28,7 @@ export PATH="$VCPKG_ROOT:$PATH"
 
 Create a CMakeUserPresets.json with the following. The Makefile targets expect these for the "default" build preset. Make sure you've sourced the .bashrc/.zshrc additions above.
 ```json
+# <project_dir>/CMakeUserPresets.json
 {
   "version": 3,
   "configurePresets": [
