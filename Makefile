@@ -1,18 +1,18 @@
 .PHONY: build-configs
 build-configs:
-	cmake -B build 
+	cmake --preset=default -B build 
 
 .PHONY: build-debug-configs
 build-debug-configs: install-deps
-	cmake -B build -DCMAKE_BUILD_TYPE=Debug
+	cmake --preset=default -B build -DCMAKE_BUILD_TYPE=Debug
 
 .PHONY: build
 build: build-configs
-	cmake --build build --clean-first
+	cmake --preset=default --build build --clean-first
 
 .PHONY: build-debug
 build-debug: build-debug-configs
-	cmake --build build --clean-first
+	cmake --preset=default --build build --clean-first
 
 .PHONY: clean
 clean:

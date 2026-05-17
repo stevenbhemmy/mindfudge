@@ -40,7 +40,7 @@ make build-debug
 
 Run the interpreter 
 ```bash
-./build/mindfudge test_input.bf
+./build/src/mindfudge test_input.bf
 ```
 
 Clean up build files

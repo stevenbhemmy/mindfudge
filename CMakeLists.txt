@@ -6,30 +6,12 @@ project(mindfudge)
 # 	clang-tidy;
 # 		-checks=*,-llvmlibc-restrict-system-libc-headers)
 
+# DEPENDENCIES
 find_package(fmt CONFIG REQUIRED)
 find_package(Catch2 CONFIG REQUIRED)
 
-add_subdirectory(Lexer)
-add_subdirectory(Interpreter)
-
-add_executable(mindfudge)
-target_sources(mindfudge
-  PRIVATE
-    mindfudge.cpp
-)
-
-
-target_link_libraries(mindfudge PRIVATE fmt::fmt)
-target_link_libraries(mindfudge PRIVATE Lexer)
-target_link_libraries(mindfudge PRIVATE Interpreter)
+# SOURCE
+add_subdirectory(src)
 
 # TESTS
-add_executable(mindfudge_tests)
-target_sources(mindfudge_tests
-  PRIVATE
-    mindfudge_tests.cpp
-)
-target_link_libraries(mindfudge_tests PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(mindfudge_tests PRIVATE fmt::fmt)
-target_link_libraries(mindfudge_tests PRIVATE Lexer)
-target_link_libraries(mindfudge_tests PRIVATE Interpreter)
+add_subdirectory(tests)
