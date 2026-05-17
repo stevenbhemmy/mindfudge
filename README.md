@@ -26,9 +26,25 @@ export VCPKG_ROOT="$HOME/vcpkg"
 export PATH="$VCPKG_ROOT:$PATH"
 ```
 
+Create a CMakeUserPresets.json with the following. The Makefile targets expect these for the "default" build preset. Make sure you've sourced the .bashrc/.zshrc additions above.
+```json
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "default",
+      "inherits": "vcpkg",
+      "environment": {
+        "VCPKG_ROOT": "$env{VCPKG_ROOT}"
+      }
+    }
+  ]
+}
+```
+
 ## Project commands
 
-Build
+Build (into <project_dir>/build)
 ```bash
 make build
 ```
